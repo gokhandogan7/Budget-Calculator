@@ -5,9 +5,8 @@ import { ExpenseForm } from "./components/ExpenseForm";
 import { Alert } from "./components/Alert";
 import { v4 as uuidv4 } from "uuid";
 
-const initialExpenses = [
- 
-];
+
+const initialExpenses = localStorage.getItem('expenses') ? JSON.parse(localStorage.getItem('expenses')) : []
 
 function App() {
   //all expenses, add expense
@@ -22,6 +21,13 @@ function App() {
   const [edit, setEdit] = useState(false)
   // set item
   const [id, setId] = useState(0)
+  // ************useEffect************//
+  useEffect(()=>{
+   console.log('we called storage')
+   localStorage.setItem('expenses', JSON.stringify(expenses)) 
+  }, [expenses])
+
+
   //***********functionality****** */
   const handleCharge = (e) => {
     setCharge(e.target.value);
@@ -40,15 +46,27 @@ function App() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (charge !== "" && amount > 0) {
-      const singleExpense = {
+      if (edit){
+        let tempExpenses = expenses.map(item => {
+          return item.id === id ?{...item, charge,amount} : item
+        })
+        setExpenses(tempExpenses);
+        setEdit(false);
+        handleAlert({type: 'success', text: 'item edited'})
+      }
+      else{
+        const singleExpense = {
         id: uuidv4(),
         charge,
         amount,
       };
       setExpenses([...expenses, singleExpense]);
       handleAlert({ type: "success", text: "item added" });
+
+      }
       setAmount("");
       setCharge("");
+      
     } else {
       handleAlert({
         type: "danger",
