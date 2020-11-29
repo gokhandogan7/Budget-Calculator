@@ -28,6 +28,11 @@ class Firebase {
     firebase.auth().signInWithPopup(googleProvider);
 
   }
+
+  signIn(email, password) {
+  this.firebaseAuth.signInWithEmailAndPassword(email, password); 
+  }
+
 }
 
 export default new Firebase();
