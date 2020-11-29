@@ -4,11 +4,16 @@ import { ExpenseList } from "./components/ExpenseList";
 import { ExpenseForm } from "./components/ExpenseForm";
 import { Alert } from "./components/Alert";
 import { v4 as uuidv4 } from "uuid";
+import Signup from './pages/Signup'
+import Navbar from './components/Navbar'
 
 
 const initialExpenses = localStorage.getItem('expenses') ? JSON.parse(localStorage.getItem('expenses')) : []
 
 function App() {
+  {
+    console.log(process.env)
+  }
   //all expenses, add expense
   const [expenses, setExpenses] = useState(initialExpenses);
   // single expense
@@ -133,6 +138,8 @@ function App() {
           }, 0)}
         </span>
       </h1>
+      <Navbar />
+      <Signup />
     </>
   );
 }
