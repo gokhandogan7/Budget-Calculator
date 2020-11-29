@@ -1,5 +1,5 @@
 import firebase from "firebase/app";
-import 'firebase/auth'
+import "firebase/auth";
 
 const devConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -11,8 +11,23 @@ const devConfig = {
   appId: process.env.REACT_APP_APP_ID,
 };
 
-class Firebase{
-  
+class Firebase {
+  constructor() {
+    firebase.initializeApp(devConfig);
+
+    this.firebaseAuth = firebase.auth();
+  }
+
+  register(email, password) {
+    this.firebaseAuth.createUserWithEmailAndPassword(email, password);
+  }
+
+  useGoogleProvider() {
+    const googleProvider = new firebase.auth.GoogleAuthProvider();
+    googleProvider.setCustomParameters({prompt: "select_account",});
+    firebase.auth().signInWithPopup(googleProvider);
+
+  }
 }
 
-
+export default new Firebase();
