@@ -2,16 +2,14 @@ import React from "react";
 import { Button, TextField, Grid, Container } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { useFormik } from "formik";
-import firebase from '../firebase/firebase.utils'
+import firebase from "../firebase/firebase.utils";
 
-console.log(firebase)
 const styles = makeStyles({
   wrapper: {
     marginTop: "5rem",
     padding: 10,
   },
 });
-
 
 function Signup() {
   const formik = useFormik({
@@ -22,18 +20,15 @@ function Signup() {
     },
     onSubmit: (values) => {
       //alert(JSON.stringify(values, null, 2));
-      firebase.register(values.email, values.password)
+      firebase.register(values.email, values.password);
     },
-
   });
 
-  const handleGoogleButtonClick = ()=>{
+  const handleGoogleButtonClick = () => {
     firebase.useGoogleProvider();
-  }
-
+  };
 
   const signUpStyles = styles();
-  console.log(formik);
 
   return (
     <Container maxWidth="sm" className={signUpStyles.wrapper}>
@@ -78,7 +73,12 @@ function Signup() {
             </Button>
           </Grid>
           <Grid item xs={12}>
-            <Button onClick={handleGoogleButtonClick} variant="contained" color="primary" fullWidth>
+            <Button
+              onClick={handleGoogleButtonClick}
+              variant="contained"
+              color="primary"
+              fullWidth
+            >
               Sign Up With Google
             </Button>
           </Grid>

@@ -4,7 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import firebase from "../firebase/firebase.utils";
 import { Formik } from "formik";
 
-console.log(firebase);
+
 const styles = makeStyles({
   wrapper: {
     marginTop: "5rem",
@@ -24,8 +24,8 @@ function Signin() {
   const signInStyles = styles();
 
   const handleFormSubmit = (values) => {
-    alert(JSON.stringify(values, null, 2));
-    /* firebase.signIn(values.email, values.password) */
+     alert(JSON.stringify(values, null, 2)); 
+    firebase.signIn(values.email, values.password)
   };
 
   return (
@@ -36,6 +36,7 @@ function Signin() {
             values,
             handleChange,
             errors,
+            handleFormSubmit,
            
 
         }) => (
@@ -69,6 +70,7 @@ function Signin() {
                   variant="contained"
                   color="primary"
                   fullWidth
+                  onClick={handleFormSubmit}
                 >
                   Login
                 </Button>

@@ -5,15 +5,14 @@ import { ExpenseForm } from "./components/ExpenseForm";
 import { Alert } from "./components/Alert";
 import { v4 as uuidv4 } from "uuid";
 import AppRouter from "./Router/Router";
+import AuthContext from './context/AuthContext'
 
 const initialExpenses = localStorage.getItem("expenses")
   ? JSON.parse(localStorage.getItem("expenses"))
   : [];
 
 function App() {
-  {
-    console.log(process.env);
-  }
+  
   //all expenses, add expense
   const [expenses, setExpenses] = useState(initialExpenses);
   // single expense
@@ -28,7 +27,6 @@ function App() {
   const [id, setId] = useState(0);
   // ************useEffect************//
   useEffect(() => {
-    console.log("we called storage");
     localStorage.setItem("expenses", JSON.stringify(expenses));
   }, [expenses]);
 
@@ -102,7 +100,7 @@ function App() {
   };
 
   return (
-    <>
+    <AuthContext>
       {alert.show && <Alert type={alert.type} text={alert.text} />}
       <Alert />
       <h1>Budget Calculator</h1>
@@ -132,7 +130,7 @@ function App() {
         </span>
       </h1>
       <AppRouter />
-    </>
+    </AuthContext>
   );
 }
 
