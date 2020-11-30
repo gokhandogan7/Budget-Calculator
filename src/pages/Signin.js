@@ -24,7 +24,7 @@ function Signin() {
   const signInStyles = styles();
 
   const handleFormSubmit = (values) => {
-     alert(JSON.stringify(values, null, 2)); 
+     /* alert(JSON.stringify(values, null, 2)); */ 
     firebase.signIn(values.email, values.password)
   };
 

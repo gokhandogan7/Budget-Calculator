@@ -39,13 +39,13 @@ export default function Navbar() {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleClose = () => {
+  const handleClose = useCallback(() => {
     setAnchorEl(null);
-  };
+  }, [])
 
-  const handleSignOut = () => {
+  const handleSignOut = useCallback(() => {
     firebase.signOut();
-  } ;
+  });
 
   return (
     <div className={classes.root}>
@@ -58,7 +58,7 @@ export default function Navbar() {
           <Typography variant="h6" className={classes.title}>
             Expenses
           </Typography>
-          {auth && (
+          {currentUser && (
             <div>
               <IconButton
                 aria-label="account of current user"
@@ -92,6 +92,7 @@ export default function Navbar() {
               </Menu>
             </div>
           )}
+
         </Toolbar>
       </AppBar>
     </div>

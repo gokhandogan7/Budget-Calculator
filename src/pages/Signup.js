@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, TextField, Grid, Container } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { useFormik } from "formik";
@@ -14,13 +14,15 @@ const styles = makeStyles({
 function Signup() {
   const formik = useFormik({
     initialValues: {
-      name: "",
+      displayName: "",
       email: "",
       password: "",
     },
     onSubmit: (values) => {
       //alert(JSON.stringify(values, null, 2));
-      firebase.register(values.email, values.password);
+      firebase
+        .register(values.displayName, values.email, values.password);
+        
     },
   });
 
@@ -39,7 +41,7 @@ function Signup() {
               label="Name"
               variant="outlined"
               fullWidth
-              name="name"
+              name="displayName"
               type="text"
               onChange={formik.handleChange}
               value={formik.values.name}
